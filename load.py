@@ -29,8 +29,14 @@ def load_data(model_checkpoint:str,mode:str):
         
     else:
         train_ds = dataset[mode]
+        
         if mode=="train":
             train_ds.set_transform(preprocess_train)
+            
+        else:
+            train_ds = train_ds.remove_columns("label")
+            
+            
         val_ds=None
     
     return train_ds,val_ds,image_processor
