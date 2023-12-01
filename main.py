@@ -11,18 +11,21 @@ from hyper_params_search import search
 from train import train_best
 from prediction import predict
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
+logger = logging.getLogger()
+
 def main(args)->None:
     
-    logging.info('Start extraction')
+    logger.info('Start extraction')
     extract()
     
-    logging.info('Start hyperparameter search')
+    logger.info('Start hyperparameter search')
     search(args.model_checkpoint, args.n_trials)
     
-    logging.info('Start train the model with the best found hyperparameters')
+    logger.info('Start train the model with the best found hyperparameters')
     train_best(args.model_checkpoint)
     
-    logging.info('Start get predictions')
+    logger.info('Start get predictions')
     predict(args.model_checkpoint)
     
     

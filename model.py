@@ -9,11 +9,11 @@ from peft import LoraConfig, get_peft_model
 
 
 def model_from_checkpoint(model_checkpoint,
-          r = 16,
-          lora_alpha = 16,
-          lora_dropout = 0.1,
-          bias = "none",
-          )-> callable :
+                          r = 16,
+                          lora_alpha = 16,
+                          lora_dropout = 0.1,
+                          bias = "none",
+                          )-> callable :
     
     """create the function that initiate a model for hyperparameters search"""
 
@@ -26,18 +26,24 @@ def model_from_checkpoint(model_checkpoint,
           )
         
         if trial is not None:
-            r = trial.suggest_categorical("r", [2**i for i in range(3,10)])
-            lora_alpha = trial.suggest_float("lora_alpha", 1e-3, 1e3, log=True)
-            lora_dropout = trial.suggest_float("lora_dropout", 0, 0.9)
-            bias = trial.suggest_categorical("bias", ["none","all","lora_only"])
+            r_ = trial.suggest_categorical("r", [2**i for i in range(3,10)])
+            lora_alpha_ = trial.suggest_float("lora_alpha", 1e-3, 1e3, log=True)
+            lora_dropout_ = trial.suggest_float("lora_dropout", 0, 0.9)
+            bias_ = trial.suggest_categorical("bias", ["none","all","lora_only"])
+            
+        else:
+            r_=r
+            lora_alpha_=lora_alpha
+            lora_dropout_=lora_dropout
+            bias_=bias
             
     
         lora_config = LoraConfig(
-        r=r,
-        lora_alpha=lora_alpha,
+        r=r_,
+        lora_alpha=lora_alpha_,
+        lora_dropout=lora_dropout_,
+        bias=bias_,
         target_modules=["query", "value"],
-        lora_dropout=lora_dropout,
-        bias=bias,
         modules_to_save=["classifier"],
         )
         

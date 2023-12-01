@@ -28,7 +28,7 @@ def predict(model_checkpoint:str)->None:
     
     model = model.merge_and_unload()
     
-    test_ds, _, image_processor = load_data(model_checkpoint,"test")
+    _, test_ds, image_processor = load_data(model_checkpoint,"test")
     
     classifier = ImageClassificationPipeline(model=model,
                                              image_processor=image_processor,

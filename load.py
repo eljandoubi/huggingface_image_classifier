@@ -17,8 +17,10 @@ def load_data(model_checkpoint:str,mode:str):
     dataset = load_dataset("imagefolder", data_dir="images",
                            split="test" if mode=="test" else "train",
                            drop_labels=False)
+    
     if mode=="search":
         # the data is not uniformly distributed, so we have to use stratify_by_column
+        
         splits = dataset.train_test_split(test_size=0.2,stratify_by_column="label")
         
         train_ds = splits["train"]
@@ -27,16 +29,15 @@ def load_data(model_checkpoint:str,mode:str):
         train_ds.set_transform(preprocess_train)
         val_ds.set_transform(preprocess_val)
         
-    else:
-        train_ds = dataset[mode]
+    elif mode=="train":
         
-        if mode=="train":
-            train_ds.set_transform(preprocess_train)
-            
-        else:
-            train_ds = train_ds.remove_columns("label")
-            
-            
+        train_ds = dataset
+        train_ds.set_transform(preprocess_train)
         val_ds=None
+            
+    else:
+        val_ds = dataset.remove_columns("label")
+        train_ds=None
+            
     
     return train_ds,val_ds,image_processor
