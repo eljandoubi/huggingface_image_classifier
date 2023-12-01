@@ -7,6 +7,7 @@ date: Nov 2023
 import numpy as np
 from PIL import Image
 import os
+from tqdm import tqdm
 
 
 def extract():
@@ -21,6 +22,9 @@ def extract():
         }
     
     save_directory = 'images'  # save folder
+    
+    if os.path.isdir(save_directory):
+        return
     
     # create the save folder if it does not exist
     os.makedirs(save_directory, exist_ok=True)
@@ -51,7 +55,7 @@ def extract():
     
         # open the binary file
         with open(file_path, 'rb') as file:
-            for i in range(num_images[split]):
+            for i in tqdm(range(num_images[split])):
                 # read image data
                 image_data = file.read(width * height * channels)
                 

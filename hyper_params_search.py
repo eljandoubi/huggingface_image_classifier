@@ -4,6 +4,7 @@ Author: Abdelkarim eljandoubi
 date: Nov 2023
 """
 import json
+import os
 from set_trainer import lora_trainer
 
 def hp_space(trial):
@@ -18,6 +19,10 @@ def hp_space(trial):
 
 def search(model_checkpoint:str,n_trials:int)->None:
     """execute the search"""
+    
+    if os.path.isfile("optimal.json"):
+        return
+    
     trainer = lora_trainer(model_checkpoint)
     best_run = trainer.hyperparameter_search(n_trials=n_trials, hp_space=hp_space)
     
