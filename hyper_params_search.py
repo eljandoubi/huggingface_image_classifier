@@ -8,7 +8,7 @@ import os
 from set_trainer import lora_trainer
 
 def hp_space(trial):
-    return {"num_train_epochs": trial.suggest_int("num_train_epochs", 1, 1),
+    return {"num_train_epochs": trial.suggest_int("num_train_epochs", 1, 20),
             "learning_rate": trial.suggest_float("learning_rate", 1e-6, 1e-3,
                                                  log=True),
             "per_device_train_batch_size": trial.suggest_categorical(

@@ -15,13 +15,13 @@ def load_data(model_checkpoint,mode):
     preprocess_train, preprocess_val, image_processor = preprocessing(model_checkpoint)
 
     dataset = load_dataset("imagefolder", data_dir="images",
-                           split=mode+"[:100]",
+                           split=mode,
                            drop_labels=False)
     
     if mode=="train":
         # the data is not uniformly distributed, so we have to use stratify_by_column
         
-        splits = dataset.train_test_split(test_size=0.2,stratify_by_column="label")
+        splits = dataset.train_test_split(test_size=0.1,stratify_by_column="label")
         
         train_ds = splits["train"]
         val_ds = splits["test"]
