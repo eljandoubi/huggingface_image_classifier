@@ -18,7 +18,7 @@ import torch
 
 
 
-def preprocessing(model_checkpoint:str)->tuple[callable]:
+def preprocessing(model_checkpoint):
     """
     From the model checkpoint, it returns two callable that trait train and validation datasets
     """

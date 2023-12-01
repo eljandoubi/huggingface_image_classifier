@@ -9,7 +9,7 @@ from peft import PeftModel
 import numpy as np
 from load import load_data
 
-def predict(model_checkpoint:str)->None:
+def predict(model_checkpoint):
     """Get prediction of the test data set"""
     
     if os.path.isfile("predictions.txt"):

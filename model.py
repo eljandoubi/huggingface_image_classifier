@@ -13,7 +13,7 @@ def model_from_checkpoint(model_checkpoint,
                           lora_alpha = 16,
                           lora_dropout = 0.1,
                           bias = "none",
-                          )-> callable :
+                          ) :
     
     """create the function that initiate a model for hyperparameters search"""
 

@@ -6,19 +6,19 @@ date: Nov 2023
 from datasets import load_dataset
 from preprocessing import preprocessing
 
-def load_data(model_checkpoint:str,mode:str):
+def load_data(model_checkpoint,mode):
 
     """load data"""
     
-    assert mode in ["search","train","test"]
+    assert mode in ["train","test"]
     
     preprocess_train, preprocess_val, image_processor = preprocessing(model_checkpoint)
 
     dataset = load_dataset("imagefolder", data_dir="images",
-                           split="test" if mode=="test" else "train",
+                           split=mode+"[:100]",
                            drop_labels=False)
     
-    if mode=="search":
+    if mode=="train":
         # the data is not uniformly distributed, so we have to use stratify_by_column
         
         splits = dataset.train_test_split(test_size=0.2,stratify_by_column="label")
@@ -28,12 +28,6 @@ def load_data(model_checkpoint:str,mode:str):
         
         train_ds.set_transform(preprocess_train)
         val_ds.set_transform(preprocess_val)
-        
-    elif mode=="train":
-        
-        train_ds = dataset
-        train_ds.set_transform(preprocess_train)
-        val_ds=None
             
     else:
         val_ds = dataset.remove_columns("label")

@@ -21,10 +21,7 @@ def lora_trainer(model_checkpoint,
                  lora_alpha = 16,
                  lora_dropout = 0.1,
                  bias = "none",
-                 mode="search"
                  ):
-    
-    assert mode in ["search","train"]
     
     torch.backends.cuda.matmul.allow_tf32 = tf32
     torch.backends.cudnn.allow_tf32 = tf32
@@ -42,14 +39,14 @@ def lora_trainer(model_checkpoint,
         save_strategy="epoch",
         tf32=tf32,
         logging_steps=10,
-        load_best_model_at_end=True,
+        load_best_model_at_end = True,
         metric_for_best_model="hter",
         push_to_hub=False,
         label_names=['labels'],
         greater_is_better=False,
     )
     
-    train_ds, val_ds, image_processor = load_data(model_checkpoint,mode)
+    train_ds, val_ds, image_processor = load_data(model_checkpoint,"train")
     
     model_init = model_from_checkpoint(model_checkpoint,
                                        r,

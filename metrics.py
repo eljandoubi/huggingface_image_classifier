@@ -6,7 +6,7 @@ date: Nov 2023
 
 import numpy as np
 
-def calculate_hter(eval_pred)->dict[str,float]:
+def calculate_hter(eval_pred):
     """
     Calculate the Half Total Error Rate (HTER) for binary classification.
 

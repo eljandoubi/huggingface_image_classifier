@@ -17,7 +17,7 @@ def hp_space(trial):
                 "gradient_accumulation_steps", 1, 100)
            }
 
-def search(model_checkpoint:str,n_trials:int)->None:
+def search(model_checkpoint,n_trials):
     """execute the search"""
     
     if os.path.isfile("optimal.json"):

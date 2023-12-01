@@ -14,7 +14,7 @@ from prediction import predict
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
-def main(args)->None:
+def main(args):
     
     logger.info('Start extraction')
     extract()

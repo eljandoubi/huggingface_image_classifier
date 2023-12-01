@@ -7,10 +7,9 @@ import json
 import os
 from set_trainer import lora_trainer
 
-def train_best(model_checkpoint:str)->None:
+def train_best(model_checkpoint):
     
     """train a model with the optimal hyperparameters"""
-    
     
     model_name = model_checkpoint.split("/")[-1]
     
@@ -20,11 +19,10 @@ def train_best(model_checkpoint:str)->None:
         return
     
     with open("optimal.json", 'r', encoding='utf-8') as file:
-        hyperparameters= json.load(file)
+        hyperparameters = json.load(file)
         
-    trainer = lora_trainer(model_checkpoint,mode="train",**hyperparameters)
+    trainer = lora_trainer(model_checkpoint,**hyperparameters)
     
     trainer.train()
-    
     
     trainer.save_model(dir_name)
