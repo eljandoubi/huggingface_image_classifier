@@ -12,9 +12,9 @@ def hp_space(trial):
             "learning_rate": trial.suggest_float("learning_rate", 1e-6, 1e-3,
                                                  log=True),
             "per_device_train_batch_size": trial.suggest_categorical(
-                "per_device_train_batch_size", [2**i for i in range(3,7)]),
+                "per_device_train_batch_size", [2**i for i in range(1,6)]),
             "gradient_accumulation_steps": trial.suggest_categorical(
-                "gradient_accumulation_steps", [2**i for i in range(6)])
+                "gradient_accumulation_steps", [2**i for i in range(5)])
            }
 
 def search(model_checkpoint,n_trials):

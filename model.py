@@ -26,7 +26,7 @@ def model_from_checkpoint(model_checkpoint,
           )
         
         if trial is not None:
-            r_ = trial.suggest_categorical("r", [2**i for i in range(3,8)])
+            r_ = trial.suggest_categorical("r", [2**i for i in range(3,7)])
             lora_alpha_ = trial.suggest_float("lora_alpha", 1e-2, 1e2, log=True)
             lora_dropout_ = trial.suggest_float("lora_dropout", 0, 0.5)
             bias_ = trial.suggest_categorical("bias", ["none","all","lora_only"])
