@@ -28,7 +28,7 @@ def model_from_checkpoint(model_checkpoint,
         if trial is not None:
             r_ = trial.suggest_categorical("r", [2**i for i in range(3,10)])
             lora_alpha_ = trial.suggest_float("lora_alpha", 1e-3, 1e3, log=True)
-            lora_dropout_ = trial.suggest_float("lora_dropout", 0, 0.9)
+            lora_dropout_ = trial.suggest_float("lora_dropout", 0, 0.4)
             bias_ = trial.suggest_categorical("bias", ["none","all","lora_only"])
             
         else:
@@ -43,7 +43,7 @@ def model_from_checkpoint(model_checkpoint,
         lora_alpha=lora_alpha_,
         lora_dropout=lora_dropout_,
         bias=bias_,
-        target_modules=["query", "value"],
+        target_modules=["query","key", "value"],
         modules_to_save=["classifier"],
         )
         
