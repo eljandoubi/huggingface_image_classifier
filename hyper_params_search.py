@@ -14,7 +14,7 @@ def hp_space(trial):
             "per_device_train_batch_size": trial.suggest_categorical(
                 "per_device_train_batch_size", [2**i for i in range(3,10)]),
             "gradient_accumulation_steps": trial.suggest_categorical(
-                "gradient_accumulation_steps", [2**i for i in range(10)])
+                "gradient_accumulation_steps", [2**i for i in range(6)])
            }
 
 def search(model_checkpoint,n_trials):
