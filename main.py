@@ -37,7 +37,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--model_checkpoint", type=str,
                         help="the path to the hugging face moadel",
-                        default="google/vit-large-patch16-224-in21k",
+                        default="google/vit-base-patch16-224",
                         )
     
     parser.add_argument("--n_trials", type=int,
