@@ -4,7 +4,7 @@ Author: Abdelkarim eljandoubi
 date: Nov 2023
 """
 
-from transformers import AutoModelForImageClassification
+from transformers import AutoModelForImageClassification, AutoConfig
 from peft import LoraConfig, get_peft_model
 
 
@@ -20,8 +20,11 @@ def model_from_checkpoint(model_checkpoint,
     def model_init(trial):
         """It returns the initial model"""
         
+        config = AutoConfig.from_pretrained(model_checkpoint, num_labels=2)
+        
         model = AutoModelForImageClassification.from_pretrained(
           model_checkpoint,
+          config=config,
           ignore_mismatched_sizes=True,
           )
         

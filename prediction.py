@@ -39,7 +39,7 @@ def predict(model_checkpoint):
     results = classifier(test_ds["image"],top_k=1)
     
     
-    results = map(lambda x:int(x[0]['label'][-1]),results)
+    results = map(lambda x:int(x[0]['label'].split("_")[-1]),results)
     
     results = np.array(list(results))
     
