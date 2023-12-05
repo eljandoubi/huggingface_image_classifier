@@ -1,7 +1,34 @@
-# huggingface_image_classifier
+Certainly! Here's the revised `README.md` content in a single markdown format:
+
+# Huggingface Image Classifier
+
 ## Installation
-```conda env create -f env.yml```
+To install the environment, you need to have Anaconda installed.
 
-```conda activate hugging_face```
+### Navigate to the Folder
+Replace `[path_to]` with the path to where you have downloaded the folder.
+```bash
+cd [path_to]/huggingface_image_classifier
+```
 
-```python main.py```
+### Install Dependencies
+```bash
+conda env create -f env.yml
+```
+
+### Activate the Environment
+```bash
+conda activate hugging_face
+```
+
+### Start the Pipeline
+To get help for `main.py`, you can start with:
+```bash
+python main.py -h
+```
+Run the main script with:
+```bash
+python main.py
+```
+
+

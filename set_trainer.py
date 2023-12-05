@@ -17,17 +17,21 @@ def lora_trainer(model_checkpoint,
                  per_device_train_batch_size=8,
                  gradient_accumulation_steps=4,
                  num_train_epochs=10,
-                 r = 16,
-                 lora_alpha = 16,
-                 lora_dropout = 0.1,
-                 bias = "none",
+                 r=16,
+                 lora_alpha=16,
+                 lora_dropout=0.1,
+                 bias="none",
                  ):
-    
+    """function sets the lora trainer for hyperparamers search or model training"""
+
+    # set the operation float type for faster training if possible
     torch.backends.cuda.matmul.allow_tf32 = tf32
     torch.backends.cudnn.allow_tf32 = tf32
-    
+
+    # get the model name
     model_name = model_checkpoint.split("/")[-1]
-    
+
+    # set training arguments
     args = TrainingArguments(
         f"{model_name}-finetuned-lora",
         learning_rate=learning_rate,
@@ -39,22 +43,24 @@ def lora_trainer(model_checkpoint,
         save_strategy="epoch",
         tf32=tf32,
         logging_steps=100,
-        load_best_model_at_end = True,
+        load_best_model_at_end=True,
         metric_for_best_model="hter",
         push_to_hub=False,
         label_names=['labels'],
-        greater_is_better=False,
+        greater_is_better=False,  # for hter, the lower the better
     )
-    
-    train_ds, val_ds, image_processor = load_data(model_checkpoint,"train")
-    
+
+    # load data sets and image processor
+    train_ds, val_ds, image_processor = load_data(model_checkpoint, "train")
+
+    # get the model initialator
     model_init = model_from_checkpoint(model_checkpoint,
                                        r,
                                        lora_alpha,
                                        lora_dropout,
                                        bias
                                        )
-    
+    # set the trainer
     trainer = Trainer(
         args=args,
         model_init=model_init,
@@ -63,6 +69,6 @@ def lora_trainer(model_checkpoint,
         tokenizer=image_processor,
         compute_metrics=calculate_hter,
         data_collator=collate_fn,
-        )
-    
+    )
+
     return trainer
