@@ -1,5 +1,3 @@
-Certainly! Here's the revised `README.md` content in a single markdown format:
-
 # Huggingface Image Classifier
 
 ## Installation
