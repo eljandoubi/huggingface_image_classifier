@@ -1,5 +1,7 @@
 # Huggingface Image Classifier
 
+Fine-tune the Vision Transformer (ViT) using LoRA and Optuna for hyperparameter search.
+
 ## Installation
 To install the environment, you need to have Anaconda installed.
 
